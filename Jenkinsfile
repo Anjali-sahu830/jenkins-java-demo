@@ -2,7 +2,7 @@ pipeline {
 agent any
 stages {
 stage('Fetch File') {
-steps { git ' https://github.com/Anjali-sahu830/jenkins-java-demo.git'
+steps { git branch: 'main', url: 'https://github.com/Anjali-sahu830/jenkins-java-demo.git'
 }
 }
 stage('Building') {
