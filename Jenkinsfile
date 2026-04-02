@@ -1,31 +1,28 @@
 pipeline {
 agent any
 stages {
-stage('Fetch File') {
-steps { git branch: 'main', url: 'https://github.com/Anjali-sahu830/jenkins-java-demo.git'
-}
-}
-stage('Building') {
+stage('Checkout') {
 steps {
-echo 'Building Project....'
-bat 'javac Hello.java'
+  git branch: 'main', url: 'https://github.com/Anjali-sahu830/jenkins-java-demo.git'
 }
 }
-stage('Execution') {
+stage('Build Image') {
 steps {
-echo 'Executing Program'
-bat 'java Hello'
+bat 'docker build -t mywebsite .'
 }
 }
-stage('Deploy') {
+stage('Stop old container')
+  {
 steps {
-echo 'Deploying....'
+
+bat 'docker stop mycont || exit 0'
+bat 'docker rm mycont || exit 0'
 }
 }
+stage('Run Image - Containerize'){
+  steps{
+    bat 'docker run -d -p 7000.80 --name mycont mywebsite'
+  }
 }
-post{
-success{
-echo 'PipeLine Executed Successfully'
-}
-failure{
-echo 'PipeLine Failed'}}}
+}}
+    
