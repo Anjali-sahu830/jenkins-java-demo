@@ -8,7 +8,7 @@ steps {
 }
 stage('Publish') {
 steps {
-publishImage([
+publishHTML([
   allowMissing:true,
   alwaysLinkToLastBuild:false,
   keepAll:false,
